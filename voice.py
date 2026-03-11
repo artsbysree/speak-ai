@@ -141,7 +141,13 @@ def allVoices():
 
 
 def by_name(name):
-    return allVoices().get(name, defaultVoice())
+    voices = allVoices()
+
+    if name not in voices:
+        logger.warning(f"Voice '{name}' not found. Falling back to default voice.")
+        return defaultVoice()
+
+    return voices[name]
 
 
 def defaultVoice():
